@@ -42,7 +42,7 @@ class Game {
 
   play(){
     form.hide();
-    
+    player.getRank()
     Player.getPlayerInfo();
     
     if(allPlayers !== undefined){
@@ -70,7 +70,10 @@ class Game {
         cars[index-1].y = y;
 
         if (index === player.index){
-          cars[index - 1].shapeColor = "red";
+         // cars[index - 1].shapeColor = "red";
+         stroke(10)
+         fill("red")
+         ellipse(x,y,60)
           camera.position.x = displayWidth/2;
           camera.position.y = cars[index-1].y;
         }
@@ -86,8 +89,13 @@ class Game {
       player.update();
     }
 
-    if(player.distance > 3860){
+    if(player.distance > 3750){
       gameState = 2;
+      player.rank+=1
+      Player.updateRank(player.rank)
+      swal({
+        text: "u are"+player.rank,
+      });
     }
    
     drawSprites();
@@ -95,5 +103,6 @@ class Game {
 
   end(){
     console.log("Game Ended");
+    console.log(player.rank)
   }
 }
